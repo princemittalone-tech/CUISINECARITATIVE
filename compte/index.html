@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1D5975">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cuisine Caritative">
+<meta property="og:title" content="Mon espace donateur — Cuisine Caritative">
+<meta property="og:description" content="Connectez-vous à votre espace donateur Cuisine Caritative pour retrouver l'historique de vos dons, vos factures et vos photos.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mon espace donateur — Cuisine Caritative">
+<meta name="twitter:description" content="Connectez-vous à votre espace donateur Cuisine Caritative pour retrouver l'historique de vos dons, vos factures et vos photos.">
+<title>Mon espace donateur — Cuisine Caritative</title>
+<meta name="description" content="Connectez-vous à votre espace donateur Cuisine Caritative pour retrouver l'historique de vos dons, vos factures et vos photos.">
+<link rel="icon" href="../assets/img/logo-icone.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="brand">
+        <img src="../assets/img/logo-horizontal.png" alt="Cuisine Caritative">
+      </a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="../index.html">Accueil</a></li>
+          <li><a href="../packages.html">Nos packages</a></li>
+          <li><a href="../don-horaire.html">1h de mon salaire</a></li>
+          <li><a href="../galerie.html">Nos actions</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-cta">
+        <a href="../commande.html" class="btn btn-gold btn-sm">Faire un don</a>
+        <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+<section class="bg-white" style="padding:0;">
+  <div class="grid-2" style="gap:0; margin:0; align-items:stretch; min-height:640px;">
+    <div style="flex:1 1 380px; background:url('../assets/img/generative/login-art.svg') center/cover; display:flex; align-items:flex-end; padding:48px; min-height:280px;">
+      <div style="color:#fff;">
+        <img src="../assets/img/logo-icone.png" alt="" style="height:44px; margin-bottom:20px; filter:brightness(0) invert(1);">
+        <h2 style="color:#fff; font-size:1.7rem;">Votre générosité, suivie de bout en bout</h2>
+        <p style="color:#DCEEF5;">Historique de dons, factures, photos de chaque distribution — tout au même endroit.</p>
+      </div>
+    </div>
+    <div style="flex:1 1 380px; display:flex; align-items:center; justify-content:center; padding:56px 24px;">
+      <div style="width:100%; max-width:400px;">
+        <span class="eyebrow gold">Espace donateur</span>
+        <h1 style="font-size:1.9rem; margin-bottom:28px;">Accédez à votre historique de dons</h1>
+
+        <div style="display:flex; gap:0; margin-bottom:24px; border:1.5px solid var(--line); border-radius:var(--radius-pill); padding:4px;">
+          <button class="btn btn-sm btn-block" id="tab-login" style="border-radius:var(--radius-pill);">Connexion</button>
+          <button class="btn btn-sm btn-block btn-outline" id="tab-register" style="border-radius:var(--radius-pill); border:none;">Créer un compte</button>
+        </div>
+
+      <form id="login-form">
+        <div class="field">
+          <label for="li-email">Email</label>
+          <input type="email" id="li-email" required>
+        </div>
+        <div class="field">
+          <label for="li-pass">Mot de passe</label>
+          <input type="password" id="li-pass" required>
+        </div>
+        <p id="login-error" style="color:#B3392F; font-weight:600; display:none;">Email ou mot de passe incorrect.</p>
+        <button type="submit" class="btn btn-gold btn-block">Se connecter</button>
+        <p class="hint text-center" style="margin-top:14px;">Compte de démonstration : rachida@email.com / demo1234</p>
+      </form>
+
+      <form id="register-form" style="display:none;">
+        <div class="field">
+          <label for="re-nom">Nom complet</label>
+          <input type="text" id="re-nom" required>
+        </div>
+        <div class="field">
+          <label for="re-email">Email</label>
+          <input type="email" id="re-email" required>
+        </div>
+        <div class="field">
+          <label for="re-pass">Mot de passe</label>
+          <input type="password" id="re-pass" required>
+        </div>
+        <p id="register-error" style="color:#B3392F; font-weight:600; display:none;">Un compte existe déjà avec cet email.</p>
+        <button type="submit" class="btn btn-gold btn-block">Créer mon compte</button>
+      </form>
+      <p class="hint text-center" style="margin-top:18px;">Démonstration : les comptes sont stockés dans ce navigateur uniquement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <footer class="site-footer" style="margin-top:0;">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none; padding-top:0;">
+        <span>© 2026 Cuisine Caritative. Tous droits réservés.</span>
+        <a href="../index.html" style="color:#C9C3B7;">Retour à l'accueil</a>
+      </div>
+    </div>
+  </footer>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+const tabLogin = document.getElementById('tab-login');
+const tabRegister = document.getElementById('tab-register');
+const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
+tabLogin.addEventListener('click', () => {
+  tabLogin.classList.remove('btn-outline'); tabLogin.style.border='';
+  tabRegister.classList.add('btn-outline'); tabRegister.style.border='none';
+  loginForm.style.display='block'; registerForm.style.display='none';
+});
+tabRegister.addEventListener('click', () => {
+  tabRegister.classList.remove('btn-outline'); tabRegister.style.border='';
+  tabLogin.classList.add('btn-outline'); tabLogin.style.border='none';
+  registerForm.style.display='block'; loginForm.style.display='none';
+});
+
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const ok = ccSession.loginClient(document.getElementById('li-email').value, document.getElementById('li-pass').value);
+  if(ok) location.href = 'tableau-de-bord.html';
+  else document.getElementById('login-error').style.display = 'block';
+});
+registerForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const ok = ccSession.registerClient(
+    document.getElementById('re-nom').value,
+    document.getElementById('re-email').value,
+    document.getElementById('re-pass').value
+  );
+  if(ok) location.href = 'tableau-de-bord.html';
+  else document.getElementById('register-error').style.display = 'block';
+});
+if(ccSession.currentClient()) location.href = 'tableau-de-bord.html';
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paramètres — Admin Cuisine Caritative</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/img/logo-icone.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <h1 id="admin-title">Paramètres</h1>
+        <p id="admin-subtitle" class="hint">Configurez comment les clients vous paient.</p>
+      </div>
+    </div>
+
+    <div class="admin-card" style="max-width:640px;">
+      <h3>Paiement via WhatsApp</h3>
+      <p class="card-sub">Lorsqu'un client clique sur « Confirmer et payer » (don classique ou « 1h de mon salaire »), il est redirigé vers ce lien WhatsApp avec un message pré-rempli.</p>
+
+      <div class="field">
+        <label for="set-whatsapp">Lien WhatsApp de paiement</label>
+        <input type="text" id="set-whatsapp" placeholder="https://wa.me/22900000000">
+        <p class="hint">Format : https://wa.me/[indicatif pays][numéro sans le 0 initial]. Exemple pour le Bénin : https://wa.me/22997000000</p>
+      </div>
+
+      <div class="field">
+        <label for="set-message">Message pré-rempli</label>
+        <textarea id="set-message" rows="3"></textarea>
+        <p class="hint">Utilisez <code>{ref}</code> et <code>{montant}</code> : ils seront remplacés automatiquement par le numéro de suivi et le montant du don.</p>
+      </div>
+
+      <button class="btn btn-gold" id="save-settings-btn">Enregistrer</button>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+adminGuard();
+adminRenderShell('parametres.html', 'Paramètres', 'Configurez comment les clients vous paient.');
+adminRenderSettings();
+document.getElementById('save-settings-btn').addEventListener('click', adminSaveSettings);
+</script>
+</body>
+</html>

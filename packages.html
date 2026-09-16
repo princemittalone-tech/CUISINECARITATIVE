@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1D5975">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cuisine Caritative">
+<meta property="og:title" content="Nos packages — Cuisine Caritative">
+<meta property="og:description" content="Catalogue des formules de don Cuisine Caritative : panier repas, aide durable, aumône funérailles, occasions religieuses et formule sur-mesure.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nos packages — Cuisine Caritative">
+<meta name="twitter:description" content="Catalogue des formules de don Cuisine Caritative : panier repas, aide durable, aumône funérailles, occasions religieuses et formule sur-mesure.">
+<title>Nos packages — Cuisine Caritative</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="Catalogue des formules de don Cuisine Caritative : panier repas, aide durable, aumône funérailles, occasions religieuses et formule sur-mesure.">
+<link rel="icon" href="assets/img/logo-icone.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/img/logo-horizontal.png" alt="Cuisine Caritative">
+      </a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="comment-ca-marche.html">Comment ça marche</a></li>
+          <li><a href="packages.html" class="active">Nos packages</a></li>
+          <li><a href="don-horaire.html">1h de mon salaire</a></li>
+          <li><a href="galerie.html">Nos actions</a></li>
+          <li><a href="organisations.html">Entreprises</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-cta">
+        <a href="compte/index.html" class="btn btn-outline btn-sm btn-sm-hide">Mon espace</a>
+        <a href="commande.html" class="btn btn-gold btn-sm">Faire un don</a>
+        <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+
+<section class="hero" style="padding-bottom:0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow gold">Nos packages</span>
+      <h1>Choisissez une formule, ou laissez-nous calculer la vôtre</h1>
+      <p class="lede">Chaque formule indique le nombre de bénéficiaires, le contenu et le délai de réalisation. Vous pouvez aussi entrer un budget libre pour une proposition sur-mesure.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white section-tight">
+  <div class="container">
+    <div class="calc-panel" style="margin-bottom:56px;">
+      <span class="eyebrow">Configurateur de don</span>
+      <h3>Quel est votre budget ?</h3>
+      <p>Indiquez un montant : nous vous suggérons la formule la plus adaptée.</p>
+      <div class="field-row" style="align-items:end;">
+        <div class="field" style="margin-bottom:0;">
+          <label for="budget-input">Votre budget (FCFA)</label>
+          <input type="number" id="budget-input" placeholder="Ex : 50000" min="0" step="1000">
+        </div>
+        <button class="btn btn-blue" id="budget-btn" type="button" style="height:52px;">Voir les formules adaptées</button>
+      </div>
+      <p id="budget-result" class="hint" style="margin-top:16px;"></p>
+    </div>
+
+    <div class="filters-bar">
+      <button class="filter-chip active" data-filter="all">Toutes les formules</button>
+      <button class="filter-chip" data-filter="enfance">Panier repas / enfance</button>
+      <button class="filter-chip" data-filter="famille">Aide durable / famille</button>
+      <button class="filter-chip" data-filter="deuil">Aumône funérailles</button>
+      <button class="filter-chip" data-filter="religieux">Occasions religieuses</button>
+      <button class="filter-chip" data-filter="surmesure">Sur-mesure</button>
+    </div>
+
+    <div class="pkg-grid" id="pkg-grid">
+      <p class="hint">Chargement des formules…</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-blue-pale">
+  <div class="container">
+    <div class="cta-banner" style="background:linear-gradient(120deg,var(--gold-deep),var(--gold));">
+      <div>
+        <h2>Vous représentez une entreprise ou une organisation ?</h2>
+        <p>Nous concevons des campagnes RSE récurrentes avec rapport d'impact fourni après chaque opération.</p>
+      </div>
+      <a href="organisations.html" class="btn btn-white">Découvrir l'offre entreprises</a>
+    </div>
+  </div>
+</section>
+
+<script>
+document.getElementById('budget-btn').addEventListener('click', () => {
+  const val = parseFloat(document.getElementById('budget-input').value) || 0;
+  const result = document.getElementById('budget-result');
+  if(val <= 0){ result.textContent = "Indiquez un montant pour voir une suggestion."; return; }
+  if(val < 20000){
+    result.innerHTML = `Avec <b>${val.toLocaleString('fr-FR')} FCFA</b>, nous vous conseillons de <a href="don-horaire.html">contribuer à une cagnotte en cours</a> ou d'attendre un budget légèrement supérieur pour un panier repas.`;
+  } else if(val < 55000){
+    result.innerHTML = `Avec <b>${val.toLocaleString('fr-FR')} FCFA</b>, vous pouvez financer un <a href="commande.html?package=Panier%20repas%20x50%20enfants&prix=${val}">panier repas pour environ 50 enfants</a>.`;
+  } else if(val < 100000){
+    result.innerHTML = `Avec <b>${val.toLocaleString('fr-FR')} FCFA</b>, une <a href="commande.html?package=Aumône%20funérailles&prix=${val}">aumône funérailles</a> ou un <a href="commande.html?package=Panier%20repas%20x100%20enfants&prix=${val}">panier repas x100</a> sont accessibles.</a>`;
+  } else {
+    result.innerHTML = `Avec <b>${val.toLocaleString('fr-FR')} FCFA</b>, nous pouvons construire une opération sur-mesure. <a href="commande.html?package=Formule%20sur-mesure&prix=${val}">Démarrer ma commande</a> ou <a href="contact.html">nous contacter</a> pour un devis détaillé.`;
+  }
+});
+</script>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo-horizontal.png" alt="Cuisine Caritative" style="height:36px;margin-bottom:16px;">
+          <p>Depuis 2020, Cuisine Caritative prépare et distribue des repas et des vivres à Cotonou. Nous transformons ce service de terrain en un geste de don simple, sécurisé et suivi, accessible à toute personne où qu'elle soit.</p>
+          <div class="social-row" style="margin-top:20px;">
+            <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-1.3-.6-2.1-1.1-3-2.6-.2-.4.2-.3.6-1.1.1-.2 0-.3 0-.5l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7C16.5 3.6 15.4 3.5 14.2 3.5c-2.7 0-4.5 1.6-4.5 4.6v2.8H7v3.1h2.7V21h3.8z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 0 4 .1 1 .1 1.7.2 2.3.5.6.3 1.1.6 1.6 1.1.5.5.8 1 1.1 1.6.3.6.4 1.3.5 2.3.1 1 .1 1.3.1 4s0 3-.1 4c-.1 1-.2 1.7-.5 2.3-.3.6-.6 1.1-1.1 1.6-.5.5-1 .8-1.6 1.1-.6.3-1.3.4-2.3.5-1 .1-1.3.1-4 .1s-3 0-4-.1c-1-.1-1.7-.2-2.3-.5-.6-.3-1.1-.6-1.6-1.1-.5-.5-.8-1-1.1-1.6-.3-.6-.4-1.3-.5-2.3C2 15 2 14.7 2 12s0-3 .1-4c.1-1 .2-1.7.5-2.3.3-.6.6-1.1 1.1-1.6.5-.5 1-.8 1.6-1.1.6-.3 1.3-.4 2.3-.5C8.5 2 8.8 2 11.5 2H12zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Navigation</h4>
+          <a href="packages.html">Nos packages</a>
+          <a href="commande.html">Faire un don</a>
+          <a href="don-horaire.html">1h de mon salaire</a>
+          <a href="galerie.html">Nos actions</a>
+          <a href="suivi.html">Suivre mon don</a>
+        </div>
+        <div>
+          <h4>Organisation</h4>
+          <a href="a-propos.html">Notre histoire</a>
+          <a href="organisations.html">Espace entreprises</a>
+          <a href="blog.html">Blog &amp; sensibilisation</a>
+          <a href="contact.html">Contact</a>
+          <a href="mentions-legales.html">Transparence &amp; mentions légales</a>
+        </div>
+        <div>
+          <h4>Nous contacter</h4>
+          <a href="tel:+22900000000">+229 00 00 00 00</a>
+          <a href="mailto:contact@cuisinecaritative.bj">contact@cuisinecaritative.bj</a>
+          <a href="#">Cotonou, Bénin</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Cuisine Caritative. Tous droits réservés.</span>
+        <span>Fait avec soin à Cotonou 🇧🇯 · <a href="admin/index.html" style="color:#93897A;">Accès gérant</a></span>
+      </div>
+    </div>
+  </footer>
+
+<script src="assets/js/store.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

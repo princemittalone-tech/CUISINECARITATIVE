@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1D5975">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cuisine Caritative">
+<meta property="og:title" content="Avis des donateurs — Cuisine Caritative">
+<meta property="og:description" content="Découvrez les avis de nos donateurs et partagez le vôtre après un don sur Cuisine Caritative.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Avis des donateurs — Cuisine Caritative">
+<meta name="twitter:description" content="Découvrez les avis de nos donateurs et partagez le vôtre après un don sur Cuisine Caritative.">
+<title>Avis des donateurs — Cuisine Caritative</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="Découvrez les avis de nos donateurs et partagez le vôtre après un don sur Cuisine Caritative.">
+<link rel="icon" href="assets/img/logo-icone.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/img/logo-horizontal.png" alt="Cuisine Caritative">
+      </a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="comment-ca-marche.html">Comment ça marche</a></li>
+          <li><a href="packages.html">Nos packages</a></li>
+          <li><a href="don-horaire.html">1h de mon salaire</a></li>
+          <li><a href="galerie.html">Nos actions</a></li>
+          <li><a href="organisations.html">Entreprises</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-cta">
+        <a href="compte/tableau-de-bord.html" class="btn btn-outline btn-sm btn-sm-hide">Mon espace</a>
+        <a href="commande.html" class="btn btn-gold btn-sm">Faire un don</a>
+        <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+<section class="hero" style="padding-bottom:0;">
+  <div class="container">
+    <div class="section-head center" style="margin:0 auto;">
+      <span class="eyebrow gold">Avis des donateurs</span>
+      <h1>Ce que nos donateurs racontent, dans leurs mots</h1>
+      <p class="lede" style="margin:0 auto;">Chaque avis est publié avec l'accord de son auteur. Vous avez fait un don ? Partagez votre expérience ci-dessous.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white section-tight">
+  <div class="container">
+    <div class="testi-row" id="avis-list">
+      <p class="hint">Chargement des avis…</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-blue-pale">
+  <div class="container" style="max-width:680px;">
+    <div class="wizard-panel">
+      <h3>Laisser un avis</h3>
+      <p class="hint" style="margin-bottom:20px;">Votre avis est envoyé à notre équipe puis publié sur cette page après une courte vérification.</p>
+      <form id="avis-form">
+        <div class="field-row">
+          <div class="field">
+            <label for="av-nom">Votre nom</label>
+            <input type="text" id="av-nom" required>
+          </div>
+          <div class="field">
+            <label for="av-ref">Numéro de suivi (facultatif)</label>
+            <input type="text" id="av-ref" placeholder="Ex : CC-482913">
+          </div>
+        </div>
+        <div class="field">
+          <label for="av-note">Votre note</label>
+          <select id="av-note">
+            <option value="5">★★★★★ Excellent</option>
+            <option value="4">★★★★ Très bien</option>
+            <option value="3">★★★ Correct</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="av-texte">Votre témoignage</label>
+          <textarea id="av-texte" required placeholder="Racontez votre expérience…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold btn-block">Envoyer mon avis</button>
+      </form>
+      <div id="avis-confirm" style="display:none; text-align:center; padding:20px 0;">
+        <h3>Merci pour votre témoignage !</h3>
+        <p>Il sera visible sur cette page dès qu'il aura été vérifié par notre équipe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none; padding-top:0;">
+        <span>© 2026 Cuisine Caritative. Tous droits réservés.</span>
+        <a href="index.html" style="color:#C9C3B7;">Retour à l'accueil</a>
+      </div>
+    </div>
+  </footer>
+
+<script src="assets/js/store.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+function shareText(text){
+  const url = location.origin + location.pathname.replace('avis.html','index.html');
+  return encodeURIComponent(`« ${text} » — avis d'un donateur Cuisine Caritative. ${url}`);
+}
+function renderAllAvis(){
+  const el = document.getElementById('avis-list');
+  const list = ccStore.getAvis(true);
+  if(!list.length){ el.innerHTML = '<p class="hint">Aucun avis publié pour le moment.</p>'; return; }
+  el.innerHTML = list.map(a => `
+    <div class="testi-card">
+      <p>« ${a.texte} »</p>
+      <div class="testi-who">
+        <div class="testi-avatar">${(a.nom||'?').charAt(0)}</div>
+        <div><b>${a.nom}</b><span>${'★'.repeat(a.note||5)}</span></div>
+      </div>
+      <div style="display:flex; gap:10px; margin-top:14px;">
+        <a class="btn btn-sm btn-outline" target="_blank" rel="noopener" href="https://wa.me/?text=${shareText(a.texte)}">Partager sur WhatsApp</a>
+        <a class="btn btn-sm btn-outline" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.origin)}">Facebook</a>
+      </div>
+    </div>`).join('');
+}
+document.addEventListener('DOMContentLoaded', () => {
+  renderAllAvis();
+  document.getElementById('avis-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    ccStore.addAvis({
+      id: 'av-' + Date.now(),
+      nom: document.getElementById('av-nom').value,
+      ref: document.getElementById('av-ref').value,
+      note: parseInt(document.getElementById('av-note').value, 10),
+      texte: document.getElementById('av-texte').value,
+      publie: false, // vérifié par l'équipe avant publication
+      creeLe: new Date().toISOString().slice(0,10),
+    });
+    document.getElementById('avis-form').style.display = 'none';
+    document.getElementById('avis-confirm').style.display = 'block';
+  });
+});
+</script>
+</body>
+</html>
