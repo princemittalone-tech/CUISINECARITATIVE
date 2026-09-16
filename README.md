@@ -43,6 +43,20 @@ Le site est prêt pour un hébergement statique sans étape de build. Les option
 - Netlify / Vercel : importez simplement ce dossier comme site statique et laissez le build vide.
 
 Exemple de configuration Netlify (`netlify.toml`) est fournie dans la racine du projet.
+La configuration Vercel (`vercel.json`) et le script Bash `deploy.sh` sont également fournis.
+
+### Déploiement Vercel depuis Bash
+
+Après avoir installé et authentifié la CLI Vercel :
+
+```bash
+npm install --global vercel
+vercel login
+./deploy.sh
+```
+
+Le script vérifie que la CLI et les fichiers de déploiement sont présents, puis lance un déploiement
+de production avec `vercel --prod`. Les arguments supplémentaires sont transmis à la CLI Vercel.
 
 ### Vérification rapide avant publication
 
