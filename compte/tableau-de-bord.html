@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon tableau de bord — Cuisine Caritative</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/img/logo-icone.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="../index.html" class="brand">
+        <img src="../assets/img/logo-horizontal.png" alt="Cuisine Caritative">
+      </a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="../index.html">Accueil</a></li>
+          <li><a href="../packages.html">Nos packages</a></li>
+          <li><a href="../don-horaire.html">1h de mon salaire</a></li>
+          <li><a href="../galerie.html">Nos actions</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-cta">
+        <a href="../commande.html" class="btn btn-gold btn-sm">Faire un don</a>
+        <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+<section class="hero" style="padding-bottom:20px;">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:0;">
+      <span class="eyebrow gold">Espace donateur</span>
+      <h1 style="font-size:2.2rem;">Bonjour, <span id="client-name">—</span></h1>
+      <p class="lede" style="margin-bottom:0;">Connecté avec <span id="client-email">—</span> · <a href="#" id="logout-link" style="color:var(--blue-deep); font-weight:600;">Se déconnecter</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white section-tight">
+  <div class="container">
+    <div class="impact-tiles">
+      <div class="impact-tile"><b id="stat-dons">0</b><span>dons effectués</span></div>
+      <div class="impact-tile"><b id="stat-montant">0</b><span>montant total donné</span></div>
+      <div class="impact-tile"><b id="stat-personnes">0</b><span>personnes aidées grâce à vous</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-blue-pale">
+  <div class="container">
+    <div class="admin-card">
+      <h3>Historique de mes dons</h3>
+      <p class="card-sub">Téléchargez votre facture ou consultez les photos de chaque distribution.</p>
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead><tr><th>Réf.</th><th>Formule</th><th>Date</th><th>Montant</th><th>Statut</th><th></th></tr></thead>
+          <tbody id="historique-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white" id="media-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Mes souvenirs</span>
+      <h2>Photos &amp; vidéos de mes dons</h2>
+    </div>
+    <div class="gallery-grid" id="client-media-gallery"></div>
+  </div>
+</section>
+
+<section class="bg-blue-pale">
+  <div class="container" style="max-width:680px;">
+    <div class="wizard-panel">
+      <h3>Laisser un avis sur mon expérience</h3>
+      <p class="hint" style="margin-bottom:20px;">Votre avis pourra être publié sur la page Avis après vérification, et vous pouvez le partager directement sur vos réseaux.</p>
+      <form id="client-avis-form">
+        <div class="field">
+          <label for="ca-ref">Concernant quel don ? (facultatif)</label>
+          <select id="ca-ref"></select>
+        </div>
+        <div class="field">
+          <label for="ca-note">Votre note</label>
+          <select id="ca-note">
+            <option value="5">★★★★★ Excellent</option>
+            <option value="4">★★★★ Très bien</option>
+            <option value="3">★★★ Correct</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="ca-texte">Votre témoignage</label>
+          <textarea id="ca-texte" required placeholder="Racontez votre expérience…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold btn-block">Envoyer mon avis</button>
+      </form>
+      <div id="client-avis-confirm" style="display:none; margin-top:20px;">
+        <p style="color:var(--green); font-weight:600;">Merci ! Votre avis a été envoyé et sera publié après vérification.</p>
+        <div id="share-links" style="display:none; gap:10px;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none; padding-top:0;">
+        <span>© 2026 Cuisine Caritative. Tous droits réservés.</span>
+        <a href="../index.html" style="color:#C9C3B7;">Retour à l'accueil</a>
+      </div>
+    </div>
+  </footer>
+
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/compte.js"></script>
+<script>
+compteGuard();
+compteRenderHeader();
+compteRenderDashboard();
+compteInitAvisForm();
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tableau de bord — Admin Cuisine Caritative</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/img/logo-icone.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <h1 id="admin-title">Tableau de bord</h1>
+        <p id="admin-subtitle" class="hint">Vue d'ensemble de l'activité de la plateforme.</p>
+      </div>
+      <a href="../index.html" class="btn btn-outline btn-sm" target="_blank">Voir le site public ↗</a>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi-card"><span>Dons enregistrés</span><b id="kpi-dons">0</b></div>
+      <div class="kpi-card"><span>Montant total collecté</span><b id="kpi-montant">0</b></div>
+      <div class="kpi-card"><span>Bénéficiaires estimés</span><b id="kpi-beneficiaires">0</b></div>
+      <div class="kpi-card"><span>Pages vues (total)</span><b id="kpi-vues">0</b></div>
+    </div>
+
+    <div class="grid-2" style="align-items:start; gap:24px;">
+      <div class="admin-card">
+        <h3>Pages les plus visitées</h3>
+        <p class="card-sub">D'après les visites enregistrées dans ce navigateur.</p>
+        <div id="pages-list"></div>
+      </div>
+      <div class="admin-card">
+        <h3>Fonctionnalités les plus utilisées</h3>
+        <p class="card-sub">Boutons et liens les plus cliqués, toutes pages confondues.</p>
+        <div id="clicks-list"></div>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <h3>Zones cliquées sur les pages</h3>
+      <p class="card-sub">Position relative de chaque clic (X = largeur de page, Y = hauteur de page) — une lecture rapide des zones qui attirent l'attention.</p>
+      <div class="heatmap-box" id="heatmap"></div>
+    </div>
+
+    <div class="admin-card">
+      <h3>Dernières commandes</h3>
+      <p class="card-sub">Les 6 dons les plus récents.</p>
+      <div style="overflow-x:auto;">
+        <table class="data-table" style="min-width:600px;">
+          <thead><tr><th>Réf.</th><th>Client</th><th>Formule</th><th>Montant</th><th>Statut</th></tr></thead>
+          <tbody id="recent-orders"></tbody>
+        </table>
+      </div>
+      <div style="margin-top:16px;"><a href="commandes.html" class="btn btn-sm btn-outline">Voir toutes les commandes</a></div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+adminGuard();
+adminRenderShell('dashboard.html', 'Tableau de bord', "Vue d'ensemble de l'activité de la plateforme.");
+adminRenderDashboard();
+</script>
+</body>
+</html>

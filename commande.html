@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1D5975">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Cuisine Caritative">
+<meta property="og:title" content="Faire une aumône — Cuisine Caritative">
+<meta property="og:description" content="Programmez votre don en quatre étapes : formule, détails, coordonnées et paiement sécurisé.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Faire une aumône — Cuisine Caritative">
+<meta name="twitter:description" content="Programmez votre don en quatre étapes : formule, détails, coordonnées et paiement sécurisé.">
+<title>Faire une aumône — Cuisine Caritative</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="Programmez votre don en quatre étapes : formule, détails, coordonnées et paiement sécurisé.">
+<link rel="icon" href="assets/img/logo-icone.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <img src="assets/img/logo-horizontal.png" alt="Cuisine Caritative">
+      </a>
+      <nav aria-label="Navigation principale">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="comment-ca-marche.html">Comment ça marche</a></li>
+          <li><a href="packages.html">Nos packages</a></li>
+          <li><a href="don-horaire.html">1h de mon salaire</a></li>
+          <li><a href="galerie.html">Nos actions</a></li>
+          <li><a href="organisations.html">Entreprises</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="header-cta">
+        <a href="compte/index.html" class="btn btn-outline btn-sm btn-sm-hide">Mon espace</a>
+        <a href="commande.html" class="btn btn-gold btn-sm">Faire un don</a>
+        <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+
+<section class="hero" style="padding-bottom:20px;">
+  <div class="container">
+    <div class="section-head center" style="margin:0 auto 20px;">
+      <span class="eyebrow gold">Faire une aumône</span>
+      <h1>Programmez votre don en quatre étapes</h1>
+      <p class="lede" style="margin:0 auto;">Comptez environ trois minutes. Vous recevrez une confirmation et un numéro de suivi immédiatement après le paiement du dépôt.</p>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white" style="padding-top:20px;" id="order-wizard">
+  <div class="container">
+
+    <div class="wizard-track">
+      <div class="wizard-step active"><div class="dot">1</div><span>Formule</span></div>
+      <div class="wizard-step"><div class="dot">2</div><span>Détails</span></div>
+      <div class="wizard-step"><div class="dot">3</div><span>Coordonnées</span></div>
+      <div class="wizard-step"><div class="dot">4</div><span>Paiement</span></div>
+    </div>
+
+    <div class="wizard-panel">
+      <p id="order-error" style="color:#B3392F; font-weight:600; margin-bottom:18px;"></p>
+
+      <!-- Étape 1 : formule -->
+      <div class="order-panel" id="panel-1">
+        <h3>Quelle formule souhaitez-vous ?</h3>
+        <p class="hint" style="margin-bottom:20px;">Sélectionnée depuis la page Packages si vous en veniez, sinon choisissez ci-dessous.</p>
+        <div class="radio-card-group" id="order-package-choices">
+          <p class="hint">Chargement des formules…</p>
+        </div>
+        <p class="hint" style="margin-top:18px;">Besoin d'un format différent ? <a href="packages.html" style="color:var(--blue-deep);font-weight:600;">Voir tout le catalogue</a>.</p>
+      </div>
+
+      <!-- Étape 2 : détails -->
+      <div class="order-panel" id="panel-2" style="display:none;">
+        <h3>Quand et pourquoi ?</h3>
+        <div class="field">
+          <label>Date souhaitée</label>
+          <p class="hint" style="margin-top:-4px; margin-bottom:12px;">Seuls les jours ouverts par notre équipe, et pas encore complets, sont cliquables.</p>
+          <div class="cal-widget" id="order-calendar"></div>
+          <div id="order-date-chip"></div>
+        </div>
+        <div class="field">
+          <label for="order-occasion">Occasion</label>
+          <select id="order-occasion">
+            <option value="">Sélectionner…</option>
+            <option>Deuil / funérailles</option>
+            <option>Anniversaire</option>
+            <option>Ramadan / Tabaski</option>
+            <option>Action de grâce / baptême</option>
+            <option>Geste spontané</option>
+            <option>Action RSE / entreprise</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="order-zone">Zone ou quartier de distribution souhaité (facultatif)</label>
+          <input type="text" id="order-zone" placeholder="Ex : Akpakpa, Cotonou">
+        </div>
+        <div class="field">
+          <label for="order-message">Message personnel (facultatif)</label>
+          <textarea id="order-message" placeholder="Ex : en mémoire de mon père, dédicace à lire aux familles…"></textarea>
+        </div>
+      </div>
+
+      <!-- Étape 3 : coordonnées -->
+      <div class="order-panel" id="panel-3" style="display:none;">
+        <h3>Vos coordonnées</h3>
+        <div class="field-row">
+          <div class="field">
+            <label for="order-name">Nom complet</label>
+            <input type="text" id="order-name" placeholder="Votre nom">
+          </div>
+          <div class="field">
+            <label for="order-contact">Email ou numéro WhatsApp</label>
+            <input type="text" id="order-contact" placeholder="vous@email.com ou +229…">
+          </div>
+        </div>
+        <div class="field">
+          <label>Comment souhaitez-vous recevoir vos preuves de distribution ?</label>
+          <div class="radio-card-group">
+            <div class="radio-card">
+              <input type="radio" name="channel" id="ch-wa" value="whatsapp" checked>
+              <label for="ch-wa">WhatsApp</label>
+            </div>
+            <div class="radio-card">
+              <input type="radio" name="channel" id="ch-email" value="email">
+              <label for="ch-email">Email</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Étape 4 : récapitulatif -->
+      <div class="order-panel" id="panel-4" style="display:none;">
+        <h3>Récapitulatif de votre don</h3>
+        <div class="summary-box" id="order-summary"></div>
+        <p class="hint" style="margin-top:16px;">En confirmant, vous recevrez immédiatement un numéro de suivi. Le paiement se fait à l'étape suivante.</p>
+      </div>
+
+      <!-- Confirmation -->
+      <div id="order-confirmation" style="display:none; text-align:center; padding:20px 0;">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+          <svg viewBox="0 0 20 20" style="width:30px;height:30px;fill:#fff;"><path d="M7.5 13.5 4 10l-1.4 1.4L7.5 16.3 17.4 6.4 16 5z"/></svg>
+        </div>
+        <h3>Merci, votre don est enregistré !</h3>
+        <p>Votre numéro de suivi : <b style="color:var(--blue-deep);" id="order-ref"></b></p>
+        <p>Il ne reste plus qu'à régler le dépôt pour lancer la préparation de votre don.</p>
+        <button class="btn btn-gold" id="goto-payment-btn" type="button" style="margin-top:8px;">Procéder au paiement →</button>
+      </div>
+
+      <!-- Paiement -->
+      <div id="order-payment" style="display:none; padding:10px 0;">
+        <h3>Paiement de votre don</h3>
+        <div class="summary-box" id="payment-summary"></div>
+        <div class="field" style="margin-top:24px;">
+          <label>Moyen de paiement</label>
+          <div class="radio-card-group">
+            <div class="radio-card"><input type="radio" name="pay" id="pay-mtn" checked><label for="pay-mtn">MTN Mobile Money</label></div>
+            <div class="radio-card"><input type="radio" name="pay" id="pay-moov"><label for="pay-moov">Moov Money</label></div>
+            <div class="radio-card"><input type="radio" name="pay" id="pay-card"><label for="pay-card">Carte bancaire</label></div>
+          </div>
+        </div>
+        <p class="hint" style="margin-top:16px;">Un dépôt de 30% est demandé à la confirmation ; le solde est réglé à la remise des preuves de distribution. En cliquant ci-dessous, vous serez mis·e en relation avec notre équipe sur WhatsApp pour finaliser le paiement en toute sécurité.</p>
+        <button class="btn btn-gold btn-block" id="confirm-pay-btn" type="button" style="margin-top:20px;">Confirmer et payer</button>
+        <p class="hint text-center" style="margin-top:12px;"><a href="suivi.html" style="color:var(--blue-deep); font-weight:600;">Payer plus tard — suivre ma commande</a></p>
+      </div>
+
+      <div class="wizard-actions">
+        <button class="btn btn-outline" id="order-prev" type="button">Retour</button>
+        <button class="btn btn-gold" id="order-next" type="button">Continuer</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/img/logo-horizontal.png" alt="Cuisine Caritative" style="height:36px;margin-bottom:16px;">
+          <p>Depuis 2020, Cuisine Caritative prépare et distribue des repas et des vivres à Cotonou. Nous transformons ce service de terrain en un geste de don simple, sécurisé et suivi, accessible à toute personne où qu'elle soit.</p>
+          <div class="social-row" style="margin-top:20px;">
+            <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-1.3-.6-2.1-1.1-3-2.6-.2-.4.2-.3.6-1.1.1-.2 0-.3 0-.5l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V8c0-.9.3-1.5 1.6-1.5h1.7V3.7C16.5 3.6 15.4 3.5 14.2 3.5c-2.7 0-4.5 1.6-4.5 4.6v2.8H7v3.1h2.7V21h3.8z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 0 4 .1 1 .1 1.7.2 2.3.5.6.3 1.1.6 1.6 1.1.5.5.8 1 1.1 1.6.3.6.4 1.3.5 2.3.1 1 .1 1.3.1 4s0 3-.1 4c-.1 1-.2 1.7-.5 2.3-.3.6-.6 1.1-1.1 1.6-.5.5-1 .8-1.6 1.1-.6.3-1.3.4-2.3.5-1 .1-1.3.1-4 .1s-3 0-4-.1c-1-.1-1.7-.2-2.3-.5-.6-.3-1.1-.6-1.6-1.1-.5-.5-.8-1-1.1-1.6-.3-.6-.4-1.3-.5-2.3C2 15 2 14.7 2 12s0-3 .1-4c.1-1 .2-1.7.5-2.3.3-.6.6-1.1 1.1-1.6.5-.5 1-.8 1.6-1.1.6-.3 1.3-.4 2.3-.5C8.5 2 8.8 2 11.5 2H12zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zm5.2-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg></a>
+          </div>
+        </div>
+        <div>
+          <h4>Navigation</h4>
+          <a href="packages.html">Nos packages</a>
+          <a href="commande.html">Faire un don</a>
+          <a href="don-horaire.html">1h de mon salaire</a>
+          <a href="galerie.html">Nos actions</a>
+          <a href="suivi.html">Suivre mon don</a>
+        </div>
+        <div>
+          <h4>Organisation</h4>
+          <a href="a-propos.html">Notre histoire</a>
+          <a href="organisations.html">Espace entreprises</a>
+          <a href="blog.html">Blog &amp; sensibilisation</a>
+          <a href="contact.html">Contact</a>
+          <a href="mentions-legales.html">Transparence &amp; mentions légales</a>
+        </div>
+        <div>
+          <h4>Nous contacter</h4>
+          <a href="tel:+22900000000">+229 00 00 00 00</a>
+          <a href="mailto:contact@cuisinecaritative.bj">contact@cuisinecaritative.bj</a>
+          <a href="#">Cotonou, Bénin</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Cuisine Caritative. Tous droits réservés.</span>
+        <span>Fait avec soin à Cotonou 🇧🇯 · <a href="admin/index.html" style="color:#93897A;">Accès gérant</a></span>
+      </div>
+    </div>
+  </footer>
+
+<script src="assets/js/store.js"></script>
+<script src="assets/js/calendar.js"></script>
+<script src="assets/js/main.js"></script>
+<script>initOrderWizard();</script>
+</body>
+</html>

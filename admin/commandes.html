@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commandes — Admin Cuisine Caritative</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/img/logo-icone.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <h1 id="admin-title">Commandes</h1>
+        <p id="admin-subtitle" class="hint">Suivez et mettez à jour le statut de chaque don.</p>
+      </div>
+    </div>
+
+    <div class="admin-card">
+      <div style="overflow-x:auto;">
+        <table class="data-table" style="min-width:720px;">
+          <thead><tr><th>Réf.</th><th>Client</th><th>Formule</th><th>Montant</th><th>Date souhaitée</th><th>Statut</th><th>Médias</th></tr></thead>
+          <tbody id="commandes-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+adminGuard();
+adminRenderShell('commandes.html', 'Commandes', 'Suivez et mettez à jour le statut de chaque don.');
+adminRenderCommandes();
+</script>
+</body>
+</html>

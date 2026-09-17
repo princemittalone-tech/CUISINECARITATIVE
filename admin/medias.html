@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photos & vidéos — Admin Cuisine Caritative</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/img/logo-icone.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <h1 id="admin-title">Photos &amp; vidéos</h1>
+        <p id="admin-subtitle" class="hint">Envoyez les preuves de distribution aux donateurs.</p>
+      </div>
+    </div>
+
+    <div class="admin-card" style="max-width:720px;">
+      <h3>1. Choisissez la commande</h3>
+      <div class="field">
+        <label for="media-ref-select">Commande</label>
+        <select id="media-ref-select"></select>
+      </div>
+
+      <h3 style="margin-top:24px;">2. Ajoutez les fichiers</h3>
+      <div class="field">
+        <label for="media-label">Légende (facultatif)</label>
+        <input type="text" id="media-label" placeholder="Ex : Distribution du 12 septembre, quartier Akpakpa">
+      </div>
+      <label class="upload-drop" for="media-input">
+        📎 Cliquez pour choisir des photos ou vidéos depuis votre téléphone ou votre ordinateur
+      </label>
+      <input type="file" id="media-input" accept="image/*,video/*" multiple style="display:none;">
+      <div class="media-thumb-row" id="media-thumb-row"></div>
+
+      <h3 style="margin-top:24px;">3. Notifiez le donateur</h3>
+      <p class="hint">Le statut de la commande passe automatiquement à « Réalisée » et une notification est enregistrée pour le client (visible dans son espace donateur, envoyée par email/WhatsApp en production).</p>
+      <button class="btn btn-gold" id="send-btn">Envoyer au client</button>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+adminGuard();
+adminRenderShell('medias.html', 'Photos & vidéos', 'Envoyez les preuves de distribution aux donateurs.');
+adminRenderMedias();
+document.getElementById('media-input').addEventListener('change', (e) => adminHandleMediaUpload(e.target.files));
+document.getElementById('send-btn').addEventListener('click', adminSendToClient);
+</script>
+</body>
+</html>

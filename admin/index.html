@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion admin — Cuisine Caritative</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/img/logo-icone.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+  <div class="admin-login-wrap">
+    <div class="admin-login-card">
+      <img src="../assets/img/logo-icone.png" alt="" style="height:48px;margin-bottom:18px;">
+      <h2 style="margin-bottom:6px;">Espace gérant</h2>
+      <p class="hint" style="margin-bottom:24px;">Gestion des commandes, des prix, des médias et des statistiques de la plateforme.</p>
+      <form id="login-form">
+        <div class="field">
+          <label for="admin-pass">Mot de passe</label>
+          <input type="password" id="admin-pass" autofocus>
+        </div>
+        <p id="login-error" style="color:#B3392F; font-weight:600; display:none;">Mot de passe incorrect.</p>
+        <button type="submit" class="btn btn-blue btn-block">Se connecter</button>
+      </form>
+      <p class="hint" style="margin-top:20px;">Démonstration : mot de passe <code>caritative2026</code>. En production, remplacez cet écran par une authentification sécurisée côté serveur.</p>
+      <p class="hint" style="margin-top:10px;"><a href="../index.html" style="color:var(--blue-deep); font-weight:600;">← Retour au site public</a></p>
+    </div>
+  </div>
+<script src="../assets/js/store.js"></script>
+<script>
+document.getElementById('login-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const ok = ccSession.loginAdmin(document.getElementById('admin-pass').value);
+  if(ok){ location.href = 'dashboard.html'; }
+  else{ document.getElementById('login-error').style.display = 'block'; }
+});
+if(ccSession.isAdmin()) location.href = 'dashboard.html';
+</script>
+</body>
+</html>

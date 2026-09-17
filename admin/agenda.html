@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda — Admin Cuisine Caritative</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/img/logo-icone.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <h1 id="admin-title">Agenda</h1>
+        <p id="admin-subtitle" class="hint">Choisissez les jours où votre équipe peut réaliser des dons, et combien par jour.</p>
+      </div>
+    </div>
+
+    <div class="grid-2" style="align-items:start;">
+      <div class="admin-card">
+        <h3>Calendrier</h3>
+        <p class="card-sub">Cliquez un jour pour l'ouvrir (et fixer sa capacité) ou le fermer.</p>
+        <div class="cal-widget" id="admin-calendar" style="max-width:100%;"></div>
+      </div>
+      <div class="admin-card">
+        <h3>Jours ouverts à venir</h3>
+        <p class="card-sub">Places prises / capacité totale pour chaque jour ouvert.</p>
+        <div id="agenda-list"></div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/calendar.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+adminGuard();
+adminRenderShell('agenda.html', 'Agenda', "Choisissez les jours où votre équipe peut réaliser des dons, et combien par jour.");
+adminRenderAgenda();
+</script>
+</body>
+</html>

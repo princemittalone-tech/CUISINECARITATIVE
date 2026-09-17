@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cagnottes — Admin Cuisine Caritative</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/img/logo-icone.png">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="admin-body">
+<div class="admin-shell">
+  <aside class="admin-sidebar" id="admin-sidebar"></aside>
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <h1 id="admin-title">Cagnottes (1h de salaire)</h1>
+        <p id="admin-subtitle" class="hint">Les causes proposées aux donateurs sur la page « 1h de mon salaire ».</p>
+      </div>
+      <button class="btn btn-gold btn-sm" id="add-cagnotte-btn">+ Nouvelle cagnotte</button>
+    </div>
+
+    <div class="admin-card">
+      <p class="card-sub">Les changements sont reflétés immédiatement sur la page publique « 1h de mon salaire » (dans ce navigateur).</p>
+      <div style="overflow-x:auto;">
+        <table class="data-table" style="min-width:800px;">
+          <thead><tr><th style="min-width:180px;">Nom</th><th>Description</th><th>Objectif (FCFA)</th><th>Collecté (FCFA)</th><th>Contributeurs</th><th>Active</th><th></th></tr></thead>
+          <tbody id="cagnottes-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/admin.js"></script>
+<script>
+adminGuard();
+adminRenderShell('cagnottes.html', 'Cagnottes (1h de salaire)', 'Les causes proposées aux donateurs sur la page « 1h de mon salaire ».');
+adminRenderCagnottes();
+document.getElementById('add-cagnotte-btn').addEventListener('click', adminAddCagnotte);
+</script>
+</body>
+</html>
