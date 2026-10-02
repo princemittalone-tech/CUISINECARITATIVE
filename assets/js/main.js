@@ -1,7 +1,3 @@
-// ============================================================
-// CUISINE CARITATIVE — comportements partagés
-// ============================================================
-
 document.addEventListener('DOMContentLoaded', () => {
   initHeaderShadow();
   initCompactNav();
@@ -19,26 +15,28 @@ function initCompactNav(){
   const nav = document.getElementById('nav-links');
   if(!nav) return;
 
-  const livePath = (location.pathname || '/').split('/').pop() || 'index.html';
-  const isActive = (paths) => paths.includes(livePath) ? 'active' : '';
+  const currentPath = location.pathname.split('/').pop() || 'index.html';
+  const isActive = (paths) => paths.includes(currentPath) ? 'active' : '';
 
   nav.innerHTML = `
-    <li class="nav-item ${isActive(['index.html'])}"><a href="index.html" class="nav-link">Accueil</a></li>
-    <li class="nav-item has-menu ${isActive(['commande.html', 'don-horaire.html', 'comment-ca-marche.html'])}">
+    <li class="nav-item"><a href="index.html" class="nav-link ${isActive(['index.html'])}">Accueil</a></li>
+    <li class="nav-item has-menu">
       <button type="button" class="nav-trigger" aria-expanded="false">
         <span>Donner</span>
-        <span class="caret" aria-hidden="true">▾</span>
+        <span class="caret" aria-hidden="true">🔽</span>
       </button>
       <ul class="nav-submenu">
         <li><a href="commande.html">Faire un don</a></li>
         <li><a href="don-horaire.html">1h de mon salaire</a></li>
         <li><a href="comment-ca-marche.html">Comment ça marche</a></li>
+        <li><a href="organisations.html">Entreprises</a></li>
+        <li><a href="packages.html">Packages</a></li>
       </ul>
     </li>
-    <li class="nav-item has-menu ${isActive(['galerie.html', 'blog.html', 'avis.html'])}">
+    <li class="nav-item has-menu">
       <button type="button" class="nav-trigger" aria-expanded="false">
         <span>Impact</span>
-        <span class="caret" aria-hidden="true">▾</span>
+        <span class="caret" aria-hidden="true">🔽</span>
       </button>
       <ul class="nav-submenu">
         <li><a href="galerie.html">Nos actions</a></li>
@@ -46,60 +44,66 @@ function initCompactNav(){
         <li><a href="avis.html">Avis</a></li>
       </ul>
     </li>
-    <li class="nav-item has-menu ${isActive(['organisations.html', 'a-propos.html', 'contact.html','mentions-legales.html'])}">
+    <li class="nav-item has-menu">
       <button type="button" class="nav-trigger" aria-expanded="false">
-        <span>À propos</span>
-        <span class="caret" aria-hidden="true">▾</span>
+        <span>À Propos</span>
+        <span class="caret" aria-hidden="true">🔽</span>
       </button>
       <ul class="nav-submenu">
-        <li><a href="organisations.html">Entreprises</a></li>
         <li><a href="a-propos.html">Notre histoire</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </li>
-    <li class="nav-item ${isActive(['packages.html'])}"><a href="packages.html" class="nav-link">Packages</a></li>
   `;
 
-  const menuButtons = nav.querySelectorAll('.nav-trigger');
-  menuButtons.forEach(button => {
-    button.addEventListener('click', (event) => {
+  const items = nav.querySelectorAll('.nav-item.has-menu');
+  items.forEach(item => {
+    const trigger = item.querySelector('.nav-trigger');
+    const submenu = item.querySelector('.nav-submenu');
+
+    if(!trigger || !submenu) return;
+
+    const closeSiblings = () => {
+      items.forEach(other => {
+        if(other !== item){
+          other.classList.remove('open');
+          const otherTrigger = other.querySelector('.nav-trigger');
+          if(otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    };
+
+    trigger.addEventListener('click', (event) => {
       event.preventDefault();
       event.stopPropagation();
-      const item = button.closest('.nav-item');
-      const isOpen = item.classList.contains('open');
-      nav.querySelectorAll('.nav-item').forEach(entry => {
-        entry.classList.remove('open');
-        const trigger = entry.querySelector('.nav-trigger');
-        if(trigger) trigger.setAttribute('aria-expanded', 'false');
-      });
-      if(!isOpen){
-        item.classList.add('open');
-        button.setAttribute('aria-expanded', 'true');
-      }
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      closeSiblings();
+      item.classList.toggle('open', !expanded);
+      trigger.setAttribute('aria-expanded', String(!expanded));
     });
-  });
 
-  nav.querySelectorAll('.nav-submenu a').forEach(link => {
-    link.addEventListener('click', () => {
-      nav.querySelectorAll('.nav-item').forEach(entry => entry.classList.remove('open'));
-      const toggle = document.querySelector('.nav-toggle');
-      if(toggle) {
-        toggle.setAttribute('aria-expanded', 'false');
-      }
+    submenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        items.forEach(entry => {
+          entry.classList.remove('open');
+          const btn = entry.querySelector('.nav-trigger');
+          if(btn) btn.setAttribute('aria-expanded', 'false');
+        });
+      });
     });
   });
 
   document.addEventListener('click', (event) => {
-    if(!event.target.closest('.nav-item')) {
-      nav.querySelectorAll('.nav-item').forEach(entry => entry.classList.remove('open'));
-      nav.querySelectorAll('.nav-trigger').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+    if(!event.target.closest('.nav-item.has-menu')) {
+      items.forEach(item => {
+        item.classList.remove('open');
+        const btn = item.querySelector('.nav-trigger');
+        if(btn) btn.setAttribute('aria-expanded', 'false');
+      });
     }
   });
 }
 
-/* ---------- Suivi d'usage (démo) : pages vues + clics ----------
-   Alimente le tableau de bord admin (visites, zones cliquées,
-   fonctionnalités les plus utilisées). Stocké en local uniquement. */
 function initAnalyticsTracking(){
   if(typeof ccStore === 'undefined') return;
   const page = location.pathname.split('/').pop() || 'index.html';
@@ -119,7 +123,6 @@ function initAnalyticsTracking(){
   });
 }
 
-/* ---------- Navigation mobile ---------- */
 function initHeaderShadow(){
   const header = document.querySelector('.site-header');
   if(!header) return;
@@ -136,8 +139,8 @@ function initNav(){
   const closeMenu = () => {
     links.classList.remove('open');
     toggle.setAttribute('aria-expanded', 'false');
-    links.querySelectorAll('.nav-item').forEach(entry => entry.classList.remove('open'));
-    links.querySelectorAll('.nav-trigger').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+    links.querySelectorAll('.nav-item').forEach(item => item.classList.remove('open'));
+    links.querySelectorAll('.nav-trigger').forEach(button => button.setAttribute('aria-expanded', 'false'));
   };
 
   toggle.addEventListener('click', () => {
@@ -147,12 +150,8 @@ function initNav(){
   });
 
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
-  links.querySelectorAll('.nav-trigger').forEach(trigger => trigger.addEventListener('click', (event) => {
-    event.stopPropagation();
-  }));
 }
 
-/* ---------- FAQ accordion ---------- */
 function initFaq(){
   document.querySelectorAll('.faq-item').forEach(item => {
     const q = item.querySelector('.faq-q');
@@ -165,7 +164,6 @@ function initFaq(){
   });
 }
 
-/* ---------- Compteurs animés ---------- */
 function initCounters(){
   const counters = document.querySelectorAll('[data-count]');
   if(!counters.length) return;
@@ -183,6 +181,7 @@ function initCounters(){
   }, { threshold: 0.4 });
   counters.forEach(c => observer.observe(c));
 }
+
 function animateCount(el){
   const target = parseFloat(el.getAttribute('data-count'));
   const suffix = el.getAttribute('data-suffix') || '';
@@ -198,10 +197,6 @@ function animateCount(el){
   requestAnimationFrame(tick);
 }
 
-/* ============================================================
-   Rendu dynamique des packages depuis le store (prix modifiables
-   par l'admin -> répercutés partout où les formules s'affichent)
-   ============================================================ */
 const CC_CHECK_SVG = '<svg viewBox="0 0 20 20"><path d="M7.5 13.5 4 10l-1.4 1.4L7.5 16.3 17.4 6.4 16 5z"/></svg>';
 
 function ccPackageCardHtml(p){
@@ -244,7 +239,7 @@ function renderTestimonials(containerId, limit){
   const el = document.getElementById(containerId);
   if(!el || typeof ccStore === 'undefined') return;
   let list = ccStore.getAvis(true);
-  if(!list.length) return; // garde le contenu statique de secours déjà présent
+  if(!list.length) return;
   if(limit) list = list.slice(0, limit);
   el.innerHTML = list.map(a => `
     <div class="testi-card">
@@ -256,7 +251,6 @@ function renderTestimonials(containerId, limit){
     </div>`).join('');
 }
 
-/* ---------- Filtres packages ---------- */
 function initFilters(){
   const chips = document.querySelectorAll('.filter-chip[data-filter]');
   const cards = document.querySelectorAll('[data-category]');
@@ -274,9 +268,6 @@ function initFilters(){
   });
 }
 
-/* ============================================================
-   Calculateur "1 heure de mon salaire"
-   ============================================================ */
 function initHourlyCalculator(){
   const select = document.getElementById('wage-bracket');
   const customInput = document.getElementById('wage-custom');
@@ -286,9 +277,7 @@ function initHourlyCalculator(){
   if(!select) return;
 
   function currentValue(){
-    if(select.value === 'custom'){
-      return parseFloat(customInput.value) || 0;
-    }
+    if(select.value === 'custom') return parseFloat(customInput.value) || 0;
     return parseFloat(select.value) || 0;
   }
 
@@ -318,9 +307,6 @@ function ccGetHourlyWageAmount(){
   return parseFloat(select.value) || 0;
 }
 
-/* ============================================================
-    "1h de mon salaire" — choix de la cause + suivi du don
-    ============================================================ */
 let hwSelectedCagnotteId = null;
 let hwLastRef = null;
 let hwLastAmount = 0;
@@ -407,7 +393,7 @@ function submitHourlyDonation(){
   document.getElementById('hw-form-panel').style.display = 'none';
   document.getElementById('hw-confirmation').style.display = 'block';
   document.getElementById('hw-ref').textContent = ref;
-  renderCagnottes(); // rafraîchit la barre de progression avec la nouvelle contribution
+  renderCagnottes();
 }
 
 function showHourlyPaymentPanel(){
@@ -437,9 +423,6 @@ function confirmAndPayHourly(){
   window.location.href = url;
 }
 
-/* ============================================================
-    Formulaire de commande — assistant en plusieurs étapes
-    ============================================================ */
 const orderState = {
   step: 1,
   totalSteps: 4,
@@ -630,9 +613,6 @@ function renderSummary(){
   `;
 }
 
-/* ============================================================
-    Paiement — redirection vers le WhatsApp configuré par l'admin
-    ============================================================ */
 function showPaymentPanel(){
   document.getElementById('order-confirmation').style.display = 'none';
   const payPanel = document.getElementById('order-payment');
@@ -666,9 +646,6 @@ function confirmAndPay(){
   window.location.href = url;
 }
 
-/* ============================================================
-    Suivi de commande (démo)
-    ============================================================ */
 function initTracking(){
   const form = document.getElementById('track-form');
   if(!form) return;
@@ -724,9 +701,6 @@ function initTracking(){
   });
 }
 
-/* ============================================================
-    Formulaire de contact / RSE (démo front-end)
-    ============================================================ */
 function initSimpleForm(formId, confirmId){
   const form = document.getElementById(formId);
   if(!form) return;
