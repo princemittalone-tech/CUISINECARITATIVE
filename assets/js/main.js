@@ -4,6 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initHeaderShadow();
+  initCompactNav();
   initNav();
   initFaq();
   initCounters();
@@ -13,6 +14,88 @@ document.addEventListener('DOMContentLoaded', () => {
   renderPackageGrid('home-pkg-grid', { featuredOnly:true, limit:3 });
   renderTestimonials('home-testi-grid', 3);
 });
+
+function initCompactNav(){
+  const nav = document.getElementById('nav-links');
+  if(!nav) return;
+
+  const livePath = (location.pathname || '/').split('/').pop() || 'index.html';
+  const isActive = (paths) => paths.includes(livePath) ? 'active' : '';
+
+  nav.innerHTML = `
+    <li class="nav-item ${isActive(['index.html'])}"><a href="index.html" class="nav-link">Accueil</a></li>
+    <li class="nav-item has-menu ${isActive(['commande.html', 'don-horaire.html', 'comment-ca-marche.html'])}">
+      <button type="button" class="nav-trigger" aria-expanded="false">
+        <span>Donner</span>
+        <span class="caret" aria-hidden="true">▾</span>
+      </button>
+      <ul class="nav-submenu">
+        <li><a href="commande.html">Faire un don</a></li>
+        <li><a href="don-horaire.html">1h de mon salaire</a></li>
+        <li><a href="comment-ca-marche.html">Comment ça marche</a></li>
+      </ul>
+    </li>
+    <li class="nav-item has-menu ${isActive(['galerie.html', 'blog.html', 'avis.html'])}">
+      <button type="button" class="nav-trigger" aria-expanded="false">
+        <span>Impact</span>
+        <span class="caret" aria-hidden="true">▾</span>
+      </button>
+      <ul class="nav-submenu">
+        <li><a href="galerie.html">Nos actions</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="avis.html">Avis</a></li>
+      </ul>
+    </li>
+    <li class="nav-item has-menu ${isActive(['organisations.html', 'a-propos.html', 'contact.html','mentions-legales.html'])}">
+      <button type="button" class="nav-trigger" aria-expanded="false">
+        <span>À propos</span>
+        <span class="caret" aria-hidden="true">▾</span>
+      </button>
+      <ul class="nav-submenu">
+        <li><a href="organisations.html">Entreprises</a></li>
+        <li><a href="a-propos.html">Notre histoire</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </li>
+    <li class="nav-item ${isActive(['packages.html'])}"><a href="packages.html" class="nav-link">Packages</a></li>
+  `;
+
+  const menuButtons = nav.querySelectorAll('.nav-trigger');
+  menuButtons.forEach(button => {
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      const item = button.closest('.nav-item');
+      const isOpen = item.classList.contains('open');
+      nav.querySelectorAll('.nav-item').forEach(entry => {
+        entry.classList.remove('open');
+        const trigger = entry.querySelector('.nav-trigger');
+        if(trigger) trigger.setAttribute('aria-expanded', 'false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  nav.querySelectorAll('.nav-submenu a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.querySelectorAll('.nav-item').forEach(entry => entry.classList.remove('open'));
+      const toggle = document.querySelector('.nav-toggle');
+      if(toggle) {
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if(!event.target.closest('.nav-item')) {
+      nav.querySelectorAll('.nav-item').forEach(entry => entry.classList.remove('open'));
+      nav.querySelectorAll('.nav-trigger').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+    }
+  });
+}
 
 /* ---------- Suivi d'usage (démo) : pages vues + clics ----------
    Alimente le tableau de bord admin (visites, zones cliquées,
@@ -49,12 +132,24 @@ function initNav(){
   const toggle = document.querySelector('.nav-toggle');
   const links = document.querySelector('.nav-links');
   if(!toggle || !links) return;
+
+  const closeMenu = () => {
+    links.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    links.querySelectorAll('.nav-item').forEach(entry => entry.classList.remove('open'));
+    links.querySelectorAll('.nav-trigger').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+  };
+
   toggle.addEventListener('click', () => {
     links.classList.toggle('open');
     const expanded = links.classList.contains('open');
     toggle.setAttribute('aria-expanded', expanded);
   });
-  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  links.querySelectorAll('.nav-trigger').forEach(trigger => trigger.addEventListener('click', (event) => {
+    event.stopPropagation();
+  }));
 }
 
 /* ---------- FAQ accordion ---------- */
@@ -224,8 +319,8 @@ function ccGetHourlyWageAmount(){
 }
 
 /* ============================================================
-   "1h de mon salaire" — choix de la cause + suivi du don
-   ============================================================ */
+    "1h de mon salaire" — choix de la cause + suivi du don
+    ============================================================ */
 let hwSelectedCagnotteId = null;
 let hwLastRef = null;
 let hwLastAmount = 0;
@@ -343,8 +438,8 @@ function confirmAndPayHourly(){
 }
 
 /* ============================================================
-   Formulaire de commande — assistant en plusieurs étapes
-   ============================================================ */
+    Formulaire de commande — assistant en plusieurs étapes
+    ============================================================ */
 const orderState = {
   step: 1,
   totalSteps: 4,
@@ -411,9 +506,8 @@ function renderOrderPackageChoices(){
   el.innerHTML = list.map((p, i) => `
     <div class="radio-card">
       <input type="radio" name="package-radio" id="pk${i}" value="${p.nom}">
-      <label for="pk${i}"><button type="button" class="pkg-select-btn" data-package="${p.nom}" data-price="${p.prix}" style="all:unset;display:block;width:100%;">${p.nom}<br><small style="color:var(--ink-soft);">${ccFormatFcfa(p.prix)}</small></button></label>
+      <label for="pk${i}"><button type="button" class="pkg-select-btn" data-package="${p.nom}" data-price="${p.prix}" style="all:unset;display:block;width:100%;">${p.nom}<br><small style="color:var(--ink-soft); font-size:.78rem;">${p.description || ''}</small></button></label>
     </div>`).join('');
-  // Ré-attache les écouteurs sur les boutons nouvellement créés
   document.querySelectorAll('.pkg-select-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       orderState.package = btn.getAttribute('data-package');
@@ -537,8 +631,8 @@ function renderSummary(){
 }
 
 /* ============================================================
-   Paiement — redirection vers le WhatsApp configuré par l'admin
-   ============================================================ */
+    Paiement — redirection vers le WhatsApp configuré par l'admin
+    ============================================================ */
 function showPaymentPanel(){
   document.getElementById('order-confirmation').style.display = 'none';
   const payPanel = document.getElementById('order-payment');
@@ -573,8 +667,8 @@ function confirmAndPay(){
 }
 
 /* ============================================================
-   Suivi de commande (démo)
-   ============================================================ */
+    Suivi de commande (démo)
+    ============================================================ */
 function initTracking(){
   const form = document.getElementById('track-form');
   if(!form) return;
@@ -631,8 +725,8 @@ function initTracking(){
 }
 
 /* ============================================================
-   Formulaire de contact / RSE (démo front-end)
-   ============================================================ */
+    Formulaire de contact / RSE (démo front-end)
+    ============================================================ */
 function initSimpleForm(formId, confirmId){
   const form = document.getElementById(formId);
   if(!form) return;
